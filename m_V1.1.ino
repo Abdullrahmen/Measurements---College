@@ -17,11 +17,11 @@
 #define Key_Select 5
 #define No_Key_Pressed -1
 #define Gain_Step 2
-#define Offset_Step 0.2
+#define Offset_Step 0.25
 
 int Mode = 1, last_key_pressed = No_Key_Pressed;
 int Max = -10000, Min = 10000;
-double Offset = 0, Gain = 50;
+double Offset = 0.1, Gain = 49.9;
 unsigned int last_A = 0, last_B = 0;
 
 const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
@@ -110,9 +110,9 @@ int read_rotery(){
 
 void mode_2(int key, unsigned int pot_analog){
   int rotery_state = read_rotery();
-  if (rotery_state == 0)
+  if (rotery_state == 0 and Gain > 1.9)
     Gain -= Gain_Step;
-  else if (rotery_state == 1)
+  else if (rotery_state == 1 and Gain < 99.9)
     Gain += Gain_Step;
     
   // There is a new key pressed
@@ -122,9 +122,9 @@ void mode_2(int key, unsigned int pot_analog){
       Mode += 1;
       return;
     }
-    else if (key == Key_Up)
+    else if (key == Key_Up and Gain < 99.9)
       Gain += Gain_Step;
-    else if (key == Key_Down)
+    else if (key == Key_Down and Gain > 1.9)
       Gain -= Gain_Step;
   }
   show_measured(pot_analog);
@@ -133,9 +133,9 @@ void mode_2(int key, unsigned int pot_analog){
 
 void mode_3(int key, unsigned int pot_analog){
   int rotery_state = read_rotery();
-  if (rotery_state == 0)
+  if (rotery_state == 0 and Offset > -2.5)
     Offset -= Offset_Step;
-  else if (rotery_state == 1)
+  else if (rotery_state == 1 and Offset < 2.5)
     Offset += Offset_Step;
     
   // There is a new key pressed
@@ -145,9 +145,9 @@ void mode_3(int key, unsigned int pot_analog){
       Mode += 1;
       return;
     }
-    else if (key == Key_Up)
+    else if (key == Key_Up and Offset < 2.5)
       Offset += Offset_Step;
-    else if (key == Key_Down)
+    else if (key == Key_Down and Offset > -2.5)
       Offset -= Offset_Step;
   }
   show_measured(pot_analog);
