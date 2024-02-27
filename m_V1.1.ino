@@ -7,7 +7,7 @@
  *  Potentiometer - Vpot
  *  
  *  Result:
- *  print the measured on the lcd where 𝑚𝑒𝑎𝑠𝑢𝑟𝑒𝑑 = 𝑔𝑎𝑖𝑛 ∗ (𝑉𝑝𝑜𝑡 + 𝑜𝑓𝑓𝑠𝑒𝑡)
+ *  print the measured on the lcd where Measured = Gain ∗ (Vpot + Offset)
  */
 #include <LiquidCrystal.h>
 #define Key_Right 1
