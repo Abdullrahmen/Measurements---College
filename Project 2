@@ -32,7 +32,6 @@ unsigned long previousCountMillis = millis();
 const long countMillis = 125L;
 long count = 0L;
 bool this_input_state = false;
-int this_frequency_read = 0;
 
 
 //return true if finished
@@ -63,7 +62,6 @@ bool generate_frequency_signal(int frequency, unsigned long interval){
       pulse_part = 1;
       digitalWrite(FREQ_PIN_OUT, HIGH);
       this_input_state = 1;
-      //Serial.println(1);
     }
 
     
@@ -74,7 +72,6 @@ bool generate_frequency_signal(int frequency, unsigned long interval){
       pulse_part = 0;
       digitalWrite(FREQ_PIN_OUT, LOW);
       this_input_state = 0;
-      //Serial.println(0);
     }
   }
   else
@@ -88,14 +85,15 @@ bool generate_frequency_signal(int frequency, unsigned long interval){
 void setup() {
   pinMode(FREQ_PIN_OUT, OUTPUT);
   pinMode(FREQ_PIN_IN, INPUT);
-  //Serial.begin(9600);
 }
 
 void loop() {
   if (generate_frequency_signal(frequencies[signal_number], timings[signal_number])){
     volume = 0;
     if (signal_number == 4){
-      delay(10000000000000000000000);
+      delay(5000);
+      signal_number = 0;
+      total_volume = 0;
     }
     else
       signal_number += 1;
@@ -121,23 +119,9 @@ void loop() {
     lcd.setCursor(0, 1);
     lcd.print(total_volume);
     lcd.println(" mL");
-    //Serial.print(Q); 
-    //Serial.println(" L/Min");
+    lcd.setCursor(0, 9);
+    lcd.print(Q); 
+    lcd.println(" L/Min");
     count = 0L;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
