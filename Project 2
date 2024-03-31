@@ -31,7 +31,7 @@ long interval_between_them = 0L;
 unsigned long previousCountMillis = millis();
 const long countMillis = 125L;
 long count = 0L;
-bool this_input_state = false;
+int this_frequency_read = 0;
 
 
 //return true if finished
@@ -61,7 +61,6 @@ bool generate_frequency_signal(int frequency, unsigned long interval){
       last_start_pulse = millis();
       pulse_part = 1;
       digitalWrite(FREQ_PIN_OUT, HIGH);
-      this_input_state = 1;
     }
 
     
@@ -71,7 +70,6 @@ bool generate_frequency_signal(int frequency, unsigned long interval){
       last_start_pulse = millis(); 
       pulse_part = 0;
       digitalWrite(FREQ_PIN_OUT, LOW);
-      this_input_state = 0;
     }
   }
   else
@@ -93,7 +91,6 @@ void loop() {
     if (signal_number == 4){
       delay(5000);
       signal_number = 0;
-      total_volume = 0;
     }
     else
       signal_number += 1;
